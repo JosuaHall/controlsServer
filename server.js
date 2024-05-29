@@ -6,7 +6,14 @@ require("dotenv").config();
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-app.use(cors());
+// Define CORS options to allow all origins
+const corsOptions = {
+  origin: "*",
+  credentials: true, //access-control-allow-cryedentials:true
+  optionSuccessStatus: 200,
+};
+
+app.use(cors(corsOptions));
 
 // Proxy route
 app.get("/api/endpoint", async (req, res) => {
