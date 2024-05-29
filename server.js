@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const axios = require("axios");
+const dns = require("dns");
 require("dotenv").config();
 
 const app = express();
@@ -20,6 +21,16 @@ app.get("/api/endpoint", async (req, res) => {
   try {
     const targetUrl = `http://${process.env.ser_nr}`;
     console.log(`Target URL: ${targetUrl}`);
+    console.log(`Environment Variable ser_nr: ${process.env.ser_nr}`);
+
+    // DNS Lookup to verify resolution
+    dns.lookup(process.env.ser_nr, (err, address, family) => {
+      if (err) {
+        console.error("DNS lookup failed:", err);
+      } else {
+        console.log("DNS lookup result:", address, family);
+      }
+    });
 
     const response = await axios.get(targetUrl, {
       auth: {
@@ -29,7 +40,6 @@ app.get("/api/endpoint", async (req, res) => {
       headers: {
         Authorization: req.header("Authorization"),
         Accept: req.header("Accept"),
-        // Add any other headers you want to pass to the API server
       },
     });
     res.json(response.data);
