@@ -18,7 +18,7 @@ app.use(cors(corsOptions));
 // Proxy route
 app.get("/api/endpoint", async (req, res) => {
   try {
-    const response = await axios.get(`http://${process.env.ser_nr}/`, {
+    const response = await axios.get(`http://${process.env.ser_nr}`, {
       auth: {
         username: "pvserver",
         password: "pvwr",
