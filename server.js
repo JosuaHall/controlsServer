@@ -8,7 +8,7 @@ const PORT = process.env.PORT || 3001;
 
 // Define CORS options to allow all origins
 const corsOptions = {
-  origin: "*",
+  origin: "https://hallshauscontrols.netlify.app/",
   credentials: true, //access-control-allow-cryedentials:true
   optionSuccessStatus: 200,
 };
@@ -18,6 +18,7 @@ app.use(cors(corsOptions));
 // Proxy route
 app.get("/api/endpoint", async (req, res) => {
   try {
+    console.log(process.env.ser_nr);
     const response = await axios.get(`http://${process.env.ser_nr}`, {
       auth: {
         username: "pvserver",
